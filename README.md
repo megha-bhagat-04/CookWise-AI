@@ -27,7 +27,6 @@ The main goal of the project is to reduce food waste, simplify meal planning, an
 ### Frontend
 - React.js
 - Tailwind CSS
-- Axios
 
 ### Backend
 - Node.js
