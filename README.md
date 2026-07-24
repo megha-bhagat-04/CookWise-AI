@@ -130,8 +130,6 @@ Planning meals every day can be frustrating, especially when you're unsure what 
 
 **Megha Bhagat**
 
-MCA Student | Chandigarh University
-
 ---
 
 *This project is currently under development.*
