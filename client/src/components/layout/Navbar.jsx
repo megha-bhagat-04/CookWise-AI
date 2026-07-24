@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sparkles, ChefHat, Menu, X, LogOut, LayoutDashboard, User } from 'lucide-react';
+import { Sparkles, ChefHat, Menu, X, LogOut, LayoutDashboard, User, ShoppingBag } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
 import ThemeToggle from '../common/ThemeToggle';
 import Button from '../common/Button';
@@ -75,17 +75,30 @@ const Navbar = () => {
               </a>
             </>
           ) : (
-            <Link
-              to="/dashboard"
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
-                isActive('/dashboard')
-                  ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
-                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4" />
-              <span>Dashboard</span>
-            </Link>
+            <>
+              <Link
+                to="/dashboard"
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
+                  isActive('/dashboard')
+                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                <span>Dashboard</span>
+              </Link>
+              <Link
+                to="/pantry"
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
+                  isActive('/pantry')
+                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <ShoppingBag className="w-4 h-4 text-emerald-500" />
+                <span>Pantry</span>
+              </Link>
+            </>
           )}
         </nav>
 
@@ -178,14 +191,24 @@ const Navbar = () => {
                 </a>
               </>
             ) : (
-              <Link
-                to="/dashboard"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 flex items-center space-x-2"
-              >
-                <LayoutDashboard className="w-5 h-5 text-emerald-500" />
-                <span>Dashboard</span>
-              </Link>
+              <>
+                <Link
+                  to="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 flex items-center space-x-2"
+                >
+                  <LayoutDashboard className="w-5 h-5 text-emerald-500" />
+                  <span>Dashboard</span>
+                </Link>
+                <Link
+                  to="/pantry"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 flex items-center space-x-2"
+                >
+                  <ShoppingBag className="w-5 h-5 text-emerald-500" />
+                  <span>Pantry Management</span>
+                </Link>
+              </>
             )}
           </nav>
 
