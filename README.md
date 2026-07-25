@@ -46,22 +46,42 @@ The main goal of the project is to reduce food waste, simplify meal planning, an
 ## Folder Structure
 
 ```
-CookWise-AI
+CookWise-AI/
+├── client/                     
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   ├── layout/
+│   │   │   └── pantry/         
+│   │   ├── context/            
+│   │   ├── hooks/
+│   │   ├── pages/              
+│   │   ├── routes/             
+│   │   ├── services/           
+│   │   ├── styles/
+│   │   ├── utils/              
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── vite.config.js
+│   └── package.json
 │
-├── client
-│   ├── public
-│   └── src
-│
-├── server
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   └── server.js
+├── server/
+│   ├── config/
+│   ├── controllers/            
+│   ├── middleware/             
+│   ├── models/
+│   ├── routes/
+│   ├── utils/                  
+│   ├── server.js
+│   └── package.json
 │
 └── README.md
+
 ```
+
 
 ---
 
