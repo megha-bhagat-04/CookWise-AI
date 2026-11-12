@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const pantryRoutes = require('./routes/pantryRoutes');
+const recipeRoutes = require('./routes/recipeRoutes');
+const groceryRoutes = require('./routes/groceryRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 // Load environment variables
@@ -33,6 +35,8 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/pantry', pantryRoutes);
+app.use('/api/recipes', recipeRoutes);
+app.use('/api/grocery', groceryRoutes);
 
 // Error Handling Middlewares
 app.use(notFound);

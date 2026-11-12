@@ -9,7 +9,7 @@ const ThemeToggle = ({ className = '' }) => {
     <button
       onClick={toggleTheme}
       type="button"
-      className={`p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-slate-800/80 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/40 ${className}`}
+      className={`p-2.5 rounded-full text-slate-600 hover:bg-slate-200/60 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/40 ${className}`}
       aria-label="Toggle Dark Mode"
       title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
     >

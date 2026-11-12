@@ -13,13 +13,13 @@ const NotFoundPage = () => {
         </div>
 
         <div className="space-y-2">
-          <span className="text-5xl font-extrabold text-slate-300 dark:text-slate-700 tracking-widest">
+          <span className="text-5xl font-extrabold text-slate-300 tracking-widest">
             404
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+          <h1 className="text-2xl font-bold text-slate-900">
             Page Not Found
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500">
             The page you are looking for does not exist or has been moved.
           </p>
         </div>

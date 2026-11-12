@@ -2,85 +2,83 @@ import React from 'react';
 import { Package, AlertCircle, Clock, CheckCircle2 } from 'lucide-react';
 import Card from '../common/Card';
 
-const PantryStats = ({ items = [] }) => {
-  // Calculate summary numbers
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+const PantryStats = ({ stats, isLoading, showCategories = false }) => {
+  if (isLoading || !stats) {
+    return (
+      <div className={`grid grid-cols-2 ${showCategories ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-4`}>
+        {[1, 2, 3, 4, ...(showCategories ? [5] : [])].map((i) => (
+          <div key={i} className="h-24 bg-slate-200/70 rounded-2xl animate-pulse" />
+        ))}
+      </div>
+    );
+  }
 
-  let totalItems = items.length;
-  let expiredCount = 0;
-  let expiringSoonCount = 0;
-  let freshCount = 0;
-
-  items.forEach((item) => {
-    const expDate = new Date(item.expiryDate);
-    expDate.setHours(0, 0, 0, 0);
-    const diffDays = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
-
-    if (diffDays < 0) {
-      expiredCount++;
-    } else if (diffDays <= 3) {
-      expiringSoonCount++;
-    } else {
-      freshCount++;
-    }
-  });
-
-  const stats = [
+  const cards = [
     {
       title: 'Total Items',
-      value: totalItems,
+      value: stats.totalItems || 0,
       icon: Package,
-      gradient: 'from-emerald-500/10 to-teal-500/10 border-emerald-500/20',
-      iconBg: 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400',
-      textColor: 'text-slate-900 dark:text-white',
-    },
-    {
-      title: 'Expired Items',
-      value: expiredCount,
-      icon: AlertCircle,
-      gradient: 'from-rose-500/10 to-red-500/10 border-rose-500/20',
-      iconBg: 'bg-rose-500/20 text-rose-600 dark:text-rose-400',
-      textColor: 'text-rose-600 dark:text-rose-400',
-    },
-    {
-      title: 'Expiring Soon',
-      value: expiringSoonCount,
-      icon: Clock,
-      gradient: 'from-amber-500/10 to-orange-500/10 border-amber-500/20',
-      iconBg: 'bg-amber-500/20 text-amber-600 dark:text-amber-400',
-      textColor: 'text-amber-600 dark:text-amber-400',
+      iconColor: 'text-slate-600',
+      iconBg: 'bg-slate-100',
+      valueColor: 'text-slate-900',
     },
     {
       title: 'Fresh Items',
-      value: freshCount,
+      value: stats.freshItems || 0,
       icon: CheckCircle2,
-      gradient: 'from-emerald-500/10 to-emerald-600/10 border-emerald-500/20',
-      iconBg: 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400',
-      textColor: 'text-emerald-600 dark:text-emerald-400',
+      iconColor: 'text-emerald-600',
+      iconBg: 'bg-emerald-50',
+      valueColor: 'text-emerald-600',
+    },
+    {
+      title: 'Expiring Soon',
+      value: stats.expiringSoon || 0,
+      icon: Clock,
+      iconColor: 'text-amber-600',
+      iconBg: 'bg-amber-50',
+      valueColor: 'text-amber-600',
+    },
+    {
+      title: 'Expired Items',
+      value: stats.expiredItems || 0,
+      icon: AlertCircle,
+      iconColor: 'text-rose-600',
+      iconBg: 'bg-rose-50',
+      valueColor: 'text-rose-600',
     },
   ];
 
+  if (showCategories && stats.categoriesUsed !== undefined) {
+    cards.push({
+      title: 'Categories',
+      value: stats.categoriesUsed || 0,
+      icon: Package,
+      iconColor: 'text-sky-600',
+      iconBg: 'bg-sky-50',
+      valueColor: 'text-sky-600',
+    });
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {stats.map((stat, idx) => {
+    <div className={`grid grid-cols-2 ${showCategories ? 'lg:grid-cols-5' : 'lg:grid-cols-4'} gap-4`}>
+      {cards.map((stat, idx) => {
         const IconComponent = stat.icon;
         return (
           <Card
             key={idx}
             hoverEffect
-            className={`bg-gradient-to-br ${stat.gradient} flex items-center justify-between p-5 rounded-3xl border`}
+            className="p-5 rounded-2xl border border-slate-200/80 flex items-center justify-between transition-all"
           >
             <div className="space-y-1">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 {stat.title}
               </p>
-              <h3 className={`text-3xl font-extrabold ${stat.textColor}`}>
+              <h3 className={`text-2xl sm:text-3xl font-extrabold ${stat.valueColor}`}>
                 {stat.value}
               </h3>
             </div>
-            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${stat.iconBg}`}>
-              <IconComponent className="w-6 h-6" />
+            <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${stat.iconBg}`}>
+              <IconComponent className={`w-5 h-5 ${stat.iconColor}`} />
             </div>
           </Card>
         );

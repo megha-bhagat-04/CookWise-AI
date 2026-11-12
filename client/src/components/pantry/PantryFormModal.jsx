@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, PlusCircle, Edit3, Calendar, Tag, Weight, Sparkles } from 'lucide-react';
 import Input from '../common/Input';
 import Button from '../common/Button';
+import { formatDateForInput } from '../../utils/dateUtils';
 
 const CATEGORIES = [
   'Vegetables',
@@ -14,7 +15,14 @@ const CATEGORIES = [
   'Others',
 ];
 
-const COMMON_UNITS = ['kg', 'g', 'lbs', 'oz', 'liters', 'ml', 'pcs', 'packs', 'can', 'bottle', 'items'];
+const UNIT_GROUPS = {
+  'Weight': ['g', 'kg', 'mg'],
+  'Volume': ['ml', 'L', 'cup', 'tbsp', 'tsp'],
+  'Count': ['pcs', 'dozen', 'pack', 'packet'],
+  'Packaging': ['bottle', 'jar', 'can', 'box', 'bunch'],
+};
+
+const ALL_STANDARD_UNITS = Object.values(UNIT_GROUPS).flat();
 
 const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoading = false }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +30,7 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
     category: 'Vegetables',
     quantity: '',
     unit: 'pcs',
-    purchaseDate: new Date().toISOString().split('T')[0],
+    purchaseDate: formatDateForInput(new Date()),
     expiryDate: '',
     image: '',
   });
@@ -37,10 +45,10 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
         quantity: initialData.quantity !== undefined ? initialData.quantity : '',
         unit: initialData.unit || 'pcs',
         purchaseDate: initialData.purchaseDate
-          ? new Date(initialData.purchaseDate).toISOString().split('T')[0]
-          : new Date().toISOString().split('T')[0],
+          ? formatDateForInput(initialData.purchaseDate)
+          : formatDateForInput(new Date()),
         expiryDate: initialData.expiryDate
-          ? new Date(initialData.expiryDate).toISOString().split('T')[0]
+          ? formatDateForInput(initialData.expiryDate)
           : '',
         image: initialData.image || '',
       });
@@ -51,7 +59,7 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
         category: 'Vegetables',
         quantity: '',
         unit: 'pcs',
-        purchaseDate: new Date().toISOString().split('T')[0],
+        purchaseDate: formatDateForInput(new Date()),
         expiryDate: '',
         image: '',
       });
@@ -103,27 +111,41 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
     e.preventDefault();
     if (!validate()) return;
 
-    onSubmit({
+    const payload = {
       ...formData,
       quantity: Number(formData.quantity),
-    });
+    };
+
+    // Preserve exact saved dates when editing unless the user changed them
+    if (initialData) {
+      const initialExpiry = formatDateForInput(initialData.expiryDate);
+      const initialPurchase = formatDateForInput(initialData.purchaseDate);
+      if (initialExpiry && payload.expiryDate === initialExpiry) {
+        payload.expiryDate = initialExpiry; // keep as YYYY-MM-DD calendar date
+      }
+      if (initialPurchase && payload.purchaseDate === initialPurchase) {
+        payload.purchaseDate = initialPurchase;
+      }
+    }
+
+    onSubmit(payload);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden transition-all duration-300">
+      <div className="bg-white border border-slate-200 rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden transition-all duration-300">
         
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-slate-50/50">
           <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
               {initialData ? <Edit3 className="w-5 h-5" /> : <PlusCircle className="w-5 h-5" />}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+              <h2 className="text-lg font-bold text-slate-900">
                 {initialData ? 'Edit Pantry Item' : 'Add New Ingredient'}
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500">
                 {initialData ? 'Update item quantity or dates' : 'Track your kitchen stock & expiration'}
               </p>
             </div>
@@ -131,7 +153,7 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,7 +176,7 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
 
           {/* Category Dropdown */}
           <div className="w-full space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-0.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 ml-0.5">
               Category <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
@@ -162,17 +184,17 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full bg-slate-50/80 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 border text-sm rounded-2xl px-4 py-3 border-slate-200/80 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all duration-200"
+                className="w-full bg-slate-50/80 text-slate-900 border text-sm rounded-2xl px-4 py-3 border-slate-200/80 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all duration-200"
               >
                 {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat} className="dark:bg-slate-900">
+                  <option key={cat} value={cat} className="">
                     {cat}
                   </option>
                 ))}
               </select>
             </div>
             {errors.category && (
-              <p className="text-xs text-rose-500 dark:text-rose-400 font-medium ml-1">
+              <p className="text-xs text-rose-500 font-medium ml-1">
                 {errors.category}
               </p>
             )}
@@ -195,29 +217,41 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
             />
 
             <div className="w-full space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 ml-0.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 ml-0.5">
                 Unit <span className="text-rose-500">*</span>
               </label>
-              <input
-                type="text"
-                name="unit"
-                list="unit-suggestions"
-                placeholder="e.g. kg, pcs"
-                value={formData.unit}
-                onChange={handleChange}
-                className={`w-full bg-slate-50/80 dark:bg-slate-900/60 text-slate-900 dark:text-slate-100 border text-sm rounded-2xl px-4 py-3 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 ${
-                  errors.unit
-                    ? 'border-rose-500 focus:ring-rose-500/30'
-                    : 'border-slate-200/80 dark:border-slate-800'
-                }`}
-              />
-              <datalist id="unit-suggestions">
-                {COMMON_UNITS.map((u) => (
-                  <option key={u} value={u} />
-                ))}
-              </datalist>
+              <div className="relative">
+                <select
+                  name="unit"
+                  value={formData.unit}
+                  onChange={handleChange}
+                  className={`w-full bg-slate-50/80 text-slate-900 border text-sm rounded-2xl px-4 py-3 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 cursor-pointer ${
+                    errors.unit
+                      ? 'border-rose-500 focus:ring-rose-500/30'
+                      : 'border-slate-200/80'
+                  }`}
+                >
+                  {Object.entries(UNIT_GROUPS).map(([groupName, units]) => (
+                    <optgroup key={groupName} label={groupName} className="font-bold text-slate-500">
+                      {units.map((u) => (
+                        <option key={u} value={u} className="text-slate-900">
+                          {u}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                  {/* Keep compatibility with existing items using non-standard units */}
+                  {formData.unit && !ALL_STANDARD_UNITS.includes(formData.unit) && (
+                    <optgroup label="Other" className="font-bold text-slate-500">
+                      <option value={formData.unit} className="text-slate-900">
+                        {formData.unit}
+                      </option>
+                    </optgroup>
+                  )}
+                </select>
+              </div>
               {errors.unit && (
-                <p className="text-xs text-rose-500 dark:text-rose-400 font-medium ml-1">
+                <p className="text-xs text-rose-500 font-medium ml-1">
                   {errors.unit}
                 </p>
               )}
@@ -263,7 +297,7 @@ const PantryFormModal = ({ isOpen, onClose, onSubmit, initialData = null, isLoad
           />
 
           {/* Footer Actions */}
-          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end space-x-3">
+          <div className="pt-4 border-t border-slate-100 flex items-center justify-end space-x-3">
             <Button variant="ghost" type="button" onClick={onClose}>
               Cancel
             </Button>

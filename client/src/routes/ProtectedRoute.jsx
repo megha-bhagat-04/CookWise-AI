@@ -8,12 +8,12 @@ const ProtectedRoute = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-12 h-12 rounded-2xl apple-gradient-bg flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 animate-bounce">
             <Loader2 className="w-6 h-6 animate-spin" />
           </div>
-          <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          <p className="text-sm font-medium text-slate-600">
             Verifying Authentication...
           </p>
         </div>

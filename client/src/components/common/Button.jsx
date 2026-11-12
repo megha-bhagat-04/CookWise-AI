@@ -17,13 +17,13 @@ const Button = ({
 
   const variants = {
     primary:
-      'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20 dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:shadow-emerald-950/40',
+      'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20',
     secondary:
-      'bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800/80 dark:hover:bg-slate-700 dark:text-slate-100 border border-slate-200/60 dark:border-slate-700/60',
+      'bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200/60',
     outline:
-      'border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50',
+      'border border-slate-300 text-slate-700 hover:bg-slate-50',
     ghost:
-      'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/60',
+      'text-slate-600 hover:bg-slate-100',
     danger:
       'bg-rose-600 hover:bg-rose-500 text-white shadow-md shadow-rose-600/20',
   };

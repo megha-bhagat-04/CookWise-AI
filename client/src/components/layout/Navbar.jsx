@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sparkles, ChefHat, Menu, X, LogOut, LayoutDashboard, User, ShoppingBag } from 'lucide-react';
+import { Sparkles, ChefHat, Menu, X, LogOut, LayoutDashboard, User, ShoppingBag, UtensilsCrossed, ClipboardList } from 'lucide-react';
 import useAuth from '../../hooks/useAuth';
-import ThemeToggle from '../common/ThemeToggle';
 import Button from '../common/Button';
 
 const Navbar = () => {
@@ -20,7 +19,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/70 dark:bg-slate-950/70 border-b border-slate-200/50 dark:border-slate-800/60 transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/80 border-b border-slate-200/60 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -32,10 +31,10 @@ const Navbar = () => {
             <ChefHat className="w-6 h-6 text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
+            <span className="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
               CookWise <span className="apple-gradient-text font-black">AI</span>
             </span>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-600 dark:text-emerald-400 -mt-1">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-600 -mt-1">
               Smart Kitchen
             </span>
           </div>
@@ -49,27 +48,27 @@ const Navbar = () => {
                 to="/"
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   isActive('/')
-                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    ? 'text-emerald-600 font-semibold bg-emerald-50/60'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 Home
               </Link>
               <a
                 href="#features"
-                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 Features
               </a>
               <a
                 href="#how-it-works"
-                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 How it Works
               </a>
               <a
                 href="#benefits"
-                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
               >
                 About
               </a>
@@ -80,8 +79,8 @@ const Navbar = () => {
                 to="/dashboard"
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
                   isActive('/dashboard')
-                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    ? 'text-emerald-600 font-semibold bg-emerald-50/60'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
@@ -91,12 +90,34 @@ const Navbar = () => {
                 to="/pantry"
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
                   isActive('/pantry')
-                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50/60 dark:bg-emerald-950/40'
-                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                    ? 'text-emerald-600 font-semibold bg-emerald-50/60'
+                    : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
                 <ShoppingBag className="w-4 h-4 text-emerald-500" />
                 <span>Pantry</span>
+              </Link>
+              <Link
+                to="/recipes"
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
+                  isActive('/recipes')
+                    ? 'text-emerald-600 font-semibold bg-emerald-50/60'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <UtensilsCrossed className="w-4 h-4 text-sky-500" />
+                <span>AI Recipes</span>
+              </Link>
+              <Link
+                to="/grocery"
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center space-x-2 ${
+                  isActive('/grocery')
+                    ? 'text-emerald-600 font-semibold bg-emerald-50/60'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <ClipboardList className="w-4 h-4 text-amber-500" />
+                <span>Grocery List</span>
               </Link>
             </>
           )}
@@ -104,8 +125,6 @@ const Navbar = () => {
 
         {/* Action Controls & Auth Buttons */}
         <div className="hidden md:flex items-center space-x-3">
-          <ThemeToggle />
-
           {!isAuthenticated ? (
             <>
               <Link to="/login">
@@ -120,12 +139,12 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <div className="flex items-center space-x-3 pl-2 border-l border-slate-200 dark:border-slate-800">
-              <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 border border-slate-200/50 dark:border-slate-700/50">
+            <div className="flex items-center space-x-3 pl-2 border-l border-slate-200">
+              <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200/50">
                 <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-bold uppercase">
                   {user?.name ? user.name.charAt(0) : 'U'}
                 </div>
-                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 max-w-[120px] truncate">
+                <span className="text-xs font-semibold text-slate-800 max-w-[120px] truncate">
                   {user?.name || 'User'}
                 </span>
               </div>
@@ -133,7 +152,7 @@ const Navbar = () => {
                 variant="ghost"
                 size="sm"
                 onClick={handleLogout}
-                className="text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40"
+                className="text-rose-600 hover:bg-rose-50"
               >
                 <LogOut className="w-4 h-4 mr-1.5" />
                 Logout
@@ -144,10 +163,9 @@ const Navbar = () => {
 
         {/* Mobile Hamburger Toggle */}
         <div className="flex items-center space-x-2 md:hidden">
-          <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="p-2 rounded-xl text-slate-600 hover:bg-slate-100"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -157,35 +175,35 @@ const Navbar = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-6 py-6 space-y-4">
+        <div className="md:hidden border-b border-slate-200 bg-[#f9f8f4]/95 backdrop-blur-2xl px-6 py-6 space-y-4">
           <nav className="flex flex-col space-y-3">
             {!isAuthenticated ? (
               <>
                 <Link
                   to="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100"
                 >
                   Home
                 </Link>
                 <a
                   href="#features"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100"
                 >
                   Features
                 </a>
                 <a
                   href="#how-it-works"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100"
                 >
                   How it Works
                 </a>
                 <a
                   href="#benefits"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100"
                 >
                   About
                 </a>
@@ -195,7 +213,7 @@ const Navbar = () => {
                 <Link
                   to="/dashboard"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 flex items-center space-x-2"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
                 >
                   <LayoutDashboard className="w-5 h-5 text-emerald-500" />
                   <span>Dashboard</span>
@@ -203,16 +221,32 @@ const Navbar = () => {
                 <Link
                   to="/pantry"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 flex items-center space-x-2"
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
                 >
                   <ShoppingBag className="w-5 h-5 text-emerald-500" />
                   <span>Pantry Management</span>
+                </Link>
+                <Link
+                  to="/recipes"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
+                >
+                  <UtensilsCrossed className="w-5 h-5 text-sky-500" />
+                  <span>AI Recipes</span>
+                </Link>
+                <Link
+                  to="/grocery"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-3 py-2 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 flex items-center space-x-2"
+                >
+                  <ClipboardList className="w-5 h-5 text-amber-500" />
+                  <span>Grocery List</span>
                 </Link>
               </>
             )}
           </nav>
 
-          <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col space-y-3">
+          <div className="pt-4 border-t border-slate-200 flex flex-col space-y-3">
             {!isAuthenticated ? (
               <>
                 <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
@@ -233,8 +267,8 @@ const Navbar = () => {
                     {user?.name ? user.name.charAt(0) : 'U'}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white">{user?.name}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">{user?.email}</p>
+                    <p className="text-sm font-semibold text-slate-900">{user?.name}</p>
+                    <p className="text-xs text-slate-500">{user?.email}</p>
                   </div>
                 </div>
                 <Button

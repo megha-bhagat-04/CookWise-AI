@@ -5,7 +5,14 @@ import { authService } from '../services/authService';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEYS.USER);
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
   const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEYS.TOKEN) || null);
   const [loading, setLoading] = useState(true);
 

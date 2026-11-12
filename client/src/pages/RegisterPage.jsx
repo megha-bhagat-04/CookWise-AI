@@ -68,10 +68,10 @@ const RegisterPage = () => {
               <ChefHat className="w-7 h-7 text-white" />
             </div>
           </Link>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
             Create Account
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500">
             Start your AI smart kitchen journey today
           </p>
         </div>
@@ -81,7 +81,7 @@ const RegisterPage = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             
             {serverError && (
-              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center space-x-2">
+              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-semibold flex items-center space-x-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{serverError}</span>
               </div>
@@ -155,11 +155,11 @@ const RegisterPage = () => {
           </form>
 
           {/* Card Footer Link */}
-          <div className="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 text-center text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-6 pt-6 border-t border-slate-200/60 text-center text-xs text-slate-500">
             <span>Already have an account? </span>
             <Link
               to="/login"
-              className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+              className="font-bold text-emerald-600 hover:underline"
             >
               Sign In
             </Link>

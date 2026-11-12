@@ -63,10 +63,10 @@ const LoginPage = () => {
               <ChefHat className="w-7 h-7 text-white" />
             </div>
           </Link>
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
             Welcome back
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500">
             Sign in to access your CookWise AI dashboard
           </p>
         </div>
@@ -76,14 +76,14 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             
             {sessionExpired && (
-              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold flex items-center space-x-2">
+              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-xs font-semibold flex items-center space-x-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>Your session has expired. Please log in again.</span>
               </div>
             )}
 
             {serverError && (
-              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center space-x-2">
+              <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-semibold flex items-center space-x-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{serverError}</span>
               </div>
@@ -129,11 +129,11 @@ const LoginPage = () => {
           </form>
 
           {/* Card Footer Link */}
-          <div className="mt-6 pt-6 border-t border-slate-200/60 dark:border-slate-800/60 text-center text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-6 pt-6 border-t border-slate-200/60 text-center text-xs text-slate-500">
             <span>Don't have an account? </span>
             <Link
               to="/register"
-              className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+              className="font-bold text-emerald-600 hover:underline"
             >
               Create Account
             </Link>
